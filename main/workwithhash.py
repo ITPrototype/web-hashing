@@ -1,0 +1,56 @@
+import hashlib
+import random
+
+def Hashing(hashtype,hash_value):
+	hash_t = None
+	if hashtype == 'sha1':
+		hash_t = hashlib.sha1()
+	elif hashtype == 'sha224':
+		hash_t = hashlib.sha224()
+	elif hashtype == 'sha256':
+		hash_t = hashlib.sha256()
+	elif hashtype == 'sha512':
+		hash_t = hashlib.sha512()
+	elif hashtype == 'md5':
+		hash_t = hashlib.md5()
+	else:
+		return "Unknown hash type"
+	if hash_t:
+		hash_t.update(hash_value.encode())
+		hashed = hash_t.hexdigest()
+		return hashed
+
+def generate(words):
+    def random_generator(size,words):
+        return ''.join(random.choice(words) for _ in range(size))
+
+    lower_words = [word.lower() for word in words]
+    upper_words = [word.upper() for word in words]
+    capitalized_words = [word.capitalize() for word in words]
+    random_words = []
+
+    for x in range(20):
+        random_words.append(random_generator(size=2,words=words))
+        random_words.append(random_generator(size=2,words=lower_words))
+        random_words.append(random_generator(size=2,words=upper_words))
+        random_words.append(random_generator(size=2,words=capitalized_words))
+
+
+
+    united_words = lower_words+upper_words+capitalized_words+random_words+words
+    return united_words
+
+def deHashUPH(wlist,hash_code):
+	generated = generate(wlist)
+	for line in generated:
+		if Hashing('sha1',line) == hash_code:
+			return ['sha1',line]
+		elif Hashing('sha224',line) == hash_code:
+			return ['sha224',line]
+		elif Hashing('sha256',line) == hash_code:
+			return ['sha256',line]
+		elif Hashing('sha512',line) == hash_code:
+			return ['sha512',line]
+		elif Hashing('md5',line) == hash_code:
+			return ['md5',line]
+	return ['Not found','Not found']
