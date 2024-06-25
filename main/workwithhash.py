@@ -49,11 +49,9 @@ def deHashUPH(wlist, hash_code):
             return ["sha512", line]
         elif Hashing("md5", line) == hash_code:
             return ["md5", line]
-        elif pbkdf2_sha256.verify(
-            hash_code, Hashing("pbkdf2_sha256", Hashing("pbkdf2_sha256", line))
-        ):
+        elif pbkdf2_sha256.verify(line, Hashing("pbkdf2_sha256", line)):
             return ["pbkdf2_sha256", line]
-        elif phpass.verify(hash_code, Hashing("phpass", Hashing("phpass", line))):
+        elif phpass.verify(line, Hashing("phpass",line)):
             return ["phpass", line]
 
     return ["Not found", "Not found"]
