@@ -1,7 +1,14 @@
 import hashlib
 import random
+from passlib.hash import pbkdf2_sha256,phpass,postgres_md5
 
 def Hashing(hashtype,hash_value):
+	if hashtype == 'pbkdf2_sha256':
+		pbhash = pbkdf2_sha256.hash(hash_value)
+		return pbhash
+	if hashtype == 'phpass':
+		phpasshash = phpass.hash(hash_value)
+		return phpasshash
 	hash_t = None
 	if hashtype == 'sha1':
 		hash_t = hashlib.sha1()
@@ -53,4 +60,9 @@ def deHashUPH(wlist,hash_code):
 			return ['sha512',line]
 		elif Hashing('md5',line) == hash_code:
 			return ['md5',line]
+		elif pbkdf2_sha256.verify(line,hash_code):
+			return ['pbkdf2_sha256',line]
+		elif phpass.verify(line,hash_code):
+			return ['phpass',line]
+		
 	return ['Not found','Not found']

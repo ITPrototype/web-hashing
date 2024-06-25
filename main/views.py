@@ -7,7 +7,7 @@ def indexview(request):
     if request.method == "POST":
         hash_value = request.POST['hash_value']
         hash_type = request.POST['hash_type']
-        hash_types = ['md5','sha1','sha224','sha256','sha512']
+        hash_types = ['md5','sha1','sha224','sha256','sha512','pbkdf2_sha256','phpass']
         if str(hash_type).lower() not in hash_types:
             return HttpResponse(f"<h1>{hash_type} is not found!</h1>")
         else:
