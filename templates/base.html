@@ -28,8 +28,44 @@
         width: 90%;
         margin: 10px auto;
     }
-    .active{
-        color:red !important;
+
+    .active {
+        color: red !important;
+    }
+
+    .loader-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        /* Полупрозрачный фон */
+        z-index: 9999;
+        /* Наибольший z-index, чтобы анимация была поверх всего остального контента */
+        text-align: center;
+    }
+
+    .loader {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ff0000;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20% auto;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
 
@@ -54,6 +90,12 @@
         {% block content %}
         {% endblock %}
     </div>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('loaderContainer').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>

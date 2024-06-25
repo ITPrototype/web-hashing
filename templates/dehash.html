@@ -2,13 +2,16 @@
 
 {% block content %}
 <h1>Lets dehash</h1>
+<div class="loader-container" id="loaderContainer">
+    <div class="loader"></div>
+</div>
 <form method="POST">
     {% csrf_token %}
     <div class="mb-3">
         <input type="text" name="hashed" placeholder="Enter hash: " class="form-control">
     </div>
     <p>If you cracking someones password enter his eg name surname nickname username or phone with space<br>
-    Example: John Doe 1999 jdoe
+        Example: John Doe 1999 jdoe
     </p>
     <div class="mb-3">
         <input type="text" name="words" placeholder="Enter key words: " class="form-control">
